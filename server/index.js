@@ -34,14 +34,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(helmet());
 app.use(cors());
 
-
-app.set('trust proxy', 1) // trust first proxy
-app.use(session({
-  secret: 'secret',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true }
-}))
+app.set("trust proxy", 1); // trust first proxy
+app.use(
+  session({
+    secret: "secret",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true },
+  })
+);
 // app.use(session({
 //   cookie:{
 //       secure: true,
@@ -57,26 +58,25 @@ app.use(session({
 routeConfig(passport);
 
 //Application Routes
-app.use("/auth", Auth);
-app.use("/projects", Projects);
-app.use("/photos", photos);
-app.use("/events", Events);
-app.use("/brochure", Brochure);
-app.use("/faculty", Faculty);
-app.use("/pg", PgStudents);
-app.use("/slider", Slider);
-app.use("/achievements", Achievememts);
-app.use("/user", User);
-app.use("/feedback", Feedback)
-app.use("/payment", Payment);
-
+app.use("/opapi/auth", Auth);
+app.use("/opapi/projects", Projects);
+app.use("/opapi/photos", photos);
+app.use("/opapi/events", Events);
+app.use("/opapi/brochure", Brochure);
+app.use("/opapi/faculty", Faculty);
+app.use("/opapi/pg", PgStudents);
+app.use("/opapi/slider", Slider);
+app.use("/opapi/achievements", Achievememts);
+app.use("/opapi/user", User);
+app.use("/opapi/feedback", Feedback);
+app.use("/opapi/payment", Payment);
 
 app.get("/", async (req, res) => {
-  res.status(200).json({ message: "Welcome"})
-}) 
+  res.status(200).json({ message: "Welcome" });
+});
 
 app.listen(4000, () =>
-    ConnectDB()
+  ConnectDB()
     .then(() => console.log("Server is running \n DB connected"))
     .catch(() => console.log("Server is running DB didnt connected"))
 );

@@ -3,7 +3,7 @@ import passport from "passport";
 
 //Dadabase model
 //import { UserModel } from "../../database/user/index";
-import { UserModel } from "../../database/user/index"
+import { UserModel } from "../../database/user/index";
 
 const Router = express.Router();
 
@@ -94,16 +94,16 @@ ACCESS      :   Public
 METHOD      :   DELETE
 */
 Router.delete("/delete/:_id", async (req, res) => {
-  try {        
-      const _id = req.params;
-      const isAvailable = await UserModel.findOne({_id});
-      if(!isAvailable) {
-          throw Error("User Not exist");
-      }
-      const data = await UserModel.findByIdAndDelete(_id);
-      res.status(200).json({data: data, message: "User Deleted successfully"});
+  try {
+    const _id = req.params;
+    const isAvailable = await UserModel.findOne({ _id });
+    if (!isAvailable) {
+      throw Error("User Not exist");
+    }
+    const data = await UserModel.findByIdAndDelete(_id);
+    res.status(200).json({ data: data, message: "User Deleted successfully" });
   } catch (error) {
-      res.status(500).json({error: error.message});
+    res.status(500).json({ error: error.message });
   }
 });
 export default Router;
